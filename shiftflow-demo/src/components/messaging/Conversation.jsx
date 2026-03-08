@@ -32,6 +32,28 @@ export default function Conversation({ patient, user, onBack }) {
     })
   }
 
+  const RN_RESPONSES = {
+    "Completed": "Thanks. Noted.",
+    "On My Way": "Understood.",
+    "Needs RN": "On my way. I'll come check.",
+    "Vitals Abnormal": "Repeat vitals and notify me if still abnormal.",
+  }
+
+  function handleQuickReply(label) {
+    handleSend(label)
+    const rnResponse = RN_RESPONSES[label]
+    if (rnResponse) {
+      setTimeout(() => {
+        sendMessage(patient.id, {
+          senderId: "user_michael",
+          senderName: "Michael Chen",
+          senderRole: "RN",
+          text: rnResponse,
+        })
+      }, 1500)
+    }
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "#f8fafc" }}>
 
@@ -72,7 +94,7 @@ export default function Conversation({ patient, user, onBack }) {
 
       {/* Quick replies + input */}
       <div style={{ flexShrink: 0, backgroundColor: "#fff" }}>
-        <QuickReplies onSelect={handleSend} />
+        <QuickReplies onSelect={handleQuickReply} />
         <MessageInput onSend={handleSend} />
       </div>
     </div>

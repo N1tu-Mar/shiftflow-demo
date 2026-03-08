@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import PatientCard from "../components/dashboard/PatientCard"
 import BottomNav from "../components/dashboard/BottomNav"
 import ReportModal from "../components/reports/ReportModal"
+import VitalsCapture from "../components/vitals/VitalsCapture"
 import { demoPatients } from "../data/patients"
 import { showToast } from "../services/toastBus"
 
@@ -13,10 +14,11 @@ const ROLE_LABELS = {
   ADMIN: "Administrator",
 }
 
-export default function Dashboard({ reports, addReport }) {
+export default function Dashboard({ reports, addReport, addTask }) {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [reportPatient, setReportPatient] = useState(null)
+  const [vitalsPatient, setVitalsPatient] = useState(null)
 
   useEffect(() => {
     const stored = localStorage.getItem("shiftflowUser")
@@ -142,6 +144,7 @@ export default function Dashboard({ reports, addReport }) {
             patient={patient}
             reportCount={reportCounts[String(patient.id)] || 0}
             onOpenReport={setReportPatient}
+            onOpenVitals={setVitalsPatient}
           />
         ))}
       </main>
@@ -154,6 +157,15 @@ export default function Dashboard({ reports, addReport }) {
         onClose={() => setReportPatient(null)}
         onSave={handleSaveReport}
       />
+
+      {vitalsPatient && (
+        <VitalsCapture
+          patient={vitalsPatient}
+          user={user}
+          addTask={addTask}
+          onClose={() => setVitalsPatient(null)}
+        />
+      )}
 
       <BottomNav />
     </div>
