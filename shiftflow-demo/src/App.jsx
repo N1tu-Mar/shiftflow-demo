@@ -93,7 +93,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route
           path="/dashboard"
-          element={<Dashboard reports={reports} addReport={addReport} />}
+          element={<Dashboard reports={reports} addReport={addReport} addTask={addTask} />}
         />
         <Route
           path="/patients/:patientId"

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import { showToast } from "../../services/toastBus"
 
 const FALL_RISK_STYLES = {
   HIGH: { backgroundColor: "#fef2f2", color: "#b91c1c", border: "1px solid #fecaca" },
@@ -7,7 +6,7 @@ const FALL_RISK_STYLES = {
   LOW: { backgroundColor: "#f0fdf4", color: "#166534", border: "1px solid #bbf7d0" },
 }
 
-export default function PatientCard({ patient, reportCount = 0, onOpenReport }) {
+export default function PatientCard({ patient, reportCount = 0, onOpenReport, onOpenVitals }) {
   const navigate = useNavigate()
   const riskStyle = FALL_RISK_STYLES[patient.fallRisk] || FALL_RISK_STYLES.LOW
 
@@ -86,7 +85,7 @@ export default function PatientCard({ patient, reportCount = 0, onOpenReport }) 
         </button>
 
         <button
-          onClick={() => showToast("Vitals workflow will be added next")}
+          onClick={() => onOpenVitals(patient)}
           style={{
             flex: 1,
             height: "42px",
