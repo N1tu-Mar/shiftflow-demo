@@ -1,0 +1,9 @@
+{
+  "name": "shiftflow",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix shiftflow-demo",
+    "build": "npm run build --prefix shiftflow-demo",
+    "preview": "npm run preview --prefix shiftflow-demo"
+  }
+}
